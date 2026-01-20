@@ -1,0 +1,24 @@
+image: maven:3.8.5-openjdk-17
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - .m2/repository
+
+build_job:
+  stage: build
+  script:
+    - echo "🏗️ Compilando el proyecto..."
+    - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - target/*.jar
+
+test_job:
+  stage: test
+  script:
+    - echo "🧪 Corriendo pruebas..."
+    - mvn test
