@@ -23,33 +23,40 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID) // Spring Boot 3+ maneja esto nativamente
+    @Column(name = "id", updatable = false, nullable = false)
+    private java.util.UUID id;
 
     @Column(unique = true, nullable = false)
-    private String email;
+    private String phoneNumber;
 
     @Column(nullable = false)
-    private  String Password;
+    private  String password;
 
     private String firstName;
     private String lastName;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Receipt>receipts;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
 
-    private Boolean isActivate = true;
+    private Boolean isActive = true;
 
     private String timezone;
 
     private java.time.LocalDateTime createAt = java.time.LocalDateTime.now();
 
     private java.time.LocalDateTime last_connection;
+
+    private String verificationCode;  // código OTP temporal
+
+    private Boolean isVerified = false; // teléfono confirmado
+
+    private String lastLoginIP;
+
+    private String deviceId;
 
 
 }
