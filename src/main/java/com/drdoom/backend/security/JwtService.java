@@ -15,7 +15,7 @@ import java.util.Date;
 public class JwtService {
 
     @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
-    @Value("${JWT_SECRET}")
+    @Value("${JWT_SECRET:defaultSecretKeyForTestingPurposesOnly12345678901234567890}")
     private String secretKey;
 
     public String generateToken(User user) {
