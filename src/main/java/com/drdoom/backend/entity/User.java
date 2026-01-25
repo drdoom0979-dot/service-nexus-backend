@@ -25,7 +25,7 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // Spring Boot 3+ maneja esto nativamente
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private java.util.UUID id;
 
@@ -50,9 +50,9 @@ public class User {
 
     private java.time.LocalDateTime last_connection;
 
-    private String verificationCode;  // código OTP temporal
+    private String verificationCode;
 
-    private Boolean isVerified = false; // teléfono confirmado
+    private Boolean isVerified = false;
 
     private String lastLoginIP;
 

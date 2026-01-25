@@ -49,12 +49,25 @@ public class JwtService {
         return java.util.UUID.fromString(idString);
     }
 
+    public String extractPhoneNumber(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+
     public boolean isTokenExpired(String token) {
         try {
             return extractAllClaims(token).getExpiration().before(new Date());
         } catch (io.jsonwebtoken.ExpiredJwtException e) {
             return true; // Si capturamos la excepción de expiración, es que sí expiró
         }
+    }
+
+    public boolean isTokenValid(String token, User user) {
+        java.util.UUID userIdFromToken = extractUserId(token);
+
+        // 2. Comparamos contra el objeto que sacamos de la DB
+        // Esto asegura que el ID sea el mismo y que la firma no haya sido manipulada
+        return (userIdFromToken.equals(user.getId())) && !isTokenExpired(token);
     }
 
 
